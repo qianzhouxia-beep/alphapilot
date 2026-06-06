@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Node / Next.js
+.next/
+out/
+build/
+dist/
+node_modules/
+*.tsbuildinfo
+next-env.d.ts
+
+# Env files (含 secrets)
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env.local
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# AlphaPilot artifacts
+alphapilot.db
+alphapilot-*.db
+*.sqlite
+*.sqlite3
+.venv*/
+.env.bak
+.venv.bak
+scratch/
+.env.bak
+.venv.bak
+
+# Test / temp
+tests/.cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build outputs
+*.egg-info/
+build/
+dist/
+out/
+
+# Generated / cache
+*.pyc
+*.pyo
+__pycache__/
+node_modules/
+.next/
+playwright-report/
+.playwright-mcp/
