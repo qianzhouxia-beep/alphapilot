@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AlphaPilot | AI Trading Decision Card Showcase</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-panel {
+            background: rgba(16, 28, 48, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(29, 42, 66, 0.5);
+        }
+        .ai-glow-primary {
+            box-shadow: inset 0 0 20px rgba(77, 163, 255, 0.1), 0 0 30px rgba(77, 163, 255, 0.05);
+        }
+        .ai-glow-success {
+            box-shadow: inset 0 0 15px rgba(53, 224, 163, 0.15);
+        }
+        .k-line-container {
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#a2c9ff",
+                      "surface-panel": "#0C1728",
+                      "inverse-on-surface": "#273140",
+                      "surface-container": "#16202f",
+                      "text-disabled": "#6E7C93",
+                      "surface-container-high": "#212a39",
+                      "primary": "#a2c9ff",
+                      "surface-container-highest": "#2c3545",
+                      "primary-fixed-dim": "#a2c9ff",
+                      "on-primary-container": "#003866",
+                      "on-surface": "#d9e3f7",
+                      "surface": "#0a1422",
+                      "inverse-primary": "#0060a9",
+                      "on-primary": "#00315b",
+                      "border-subtle": "#1D2A42",
+                      "outline": "#8a919d",
+                      "secondary-fixed": "#b5ebff",
+                      "error-container": "#93000a",
+                      "primary-fixed": "#d3e4ff",
+                      "text-primary": "#EAF2FF",
+                      "surface-container-lowest": "#050e1c",
+                      "on-primary-fixed": "#001c38",
+                      "on-tertiary-fixed": "#002114",
+                      "secondary-container": "#00c6f0",
+                      "tertiary-fixed": "#5cfdbd",
+                      "on-tertiary-container": "#003f2a",
+                      "surface-container-low": "#121c2a",
+                      "surface-variant": "#2c3545",
+                      "error": "#ffb4ab",
+                      "secondary": "#7ddeff",
+                      "tertiary": "#35e0a3",
+                      "outline-variant": "#404752",
+                      "on-surface-variant": "#c0c7d4",
+                      "on-error": "#690005",
+                      "status-warning": "#F5C451",
+                      "on-secondary": "#003543",
+                      "on-background": "#d9e3f7",
+                      "on-secondary-fixed-variant": "#004e60",
+                      "tertiary-container": "#00b680",
+                      "surface-card": "#101C30",
+                      "on-secondary-container": "#004e60",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#4da3ff",
+                      "inverse-surface": "#d9e3f7",
+                      "on-secondary-fixed": "#001f28",
+                      "surface-dim": "#0a1422",
+                      "tertiary-fixed-dim": "#35e0a3",
+                      "on-tertiary": "#003825",
+                      "surface-bright": "#303a49",
+                      "background": "#0a1422",
+                      "on-primary-fixed-variant": "#004881",
+                      "secondary-fixed-dim": "#46d6ff",
+                      "text-secondary": "#9FB0C7",
+                      "on-tertiary-fixed-variant": "#005137",
+                      "status-danger": "#FF5D5D"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "32px",
+                      "gutter": "20px",
+                      "stack-md": "16px",
+                      "stack-lg": "24px",
+                      "container-max": "1440px",
+                      "stack-sm": "8px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "display-numeric": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "display-numeric": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- SideNavBar (Shared Component Shell) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low border-r border-outline-variant flex flex-col z-40">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<img alt="AlphaPilot Logo" class="w-10 h-10 rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsPQnFMU-stV_ANfTbr5bn1SzNA0xS114LtjJmgeEFK_ZEJC2mrwAfFz0ZWkKxHdnDZAEGmvr7ODjziyJJEwjk-GHdi_ZLOT1P5B3qXq1cVpxVpZ8HdCRwNbrtDNmRoJYfE0nGm0hc5NRpMTg_tB6BwRC3hf4-n4S32JiRUd-1Xe3cgMjPGbbdfLxeD27HlSBXc2usax8BjwZGtDqT9GHGg1bbKtA6frG_W1opAML5hhZOmnZYAfhgtKheASDRxy1w3mxiDJIMJNOr"/>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">AlphaPilot</span>
+<span class="font-label-sm text-label-sm text-tertiary">AI Terminal Active</span>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary py-3 px-4 rounded-xl font-label-md flex items-center justify-center gap-2 mb-8 hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                New Analysis
+            </button>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary-container/10 border-r-2 border-primary" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-text-primary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span class="font-label-md">Stock Screener</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-text-primary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span>
+<span class="font-label-md">Backtesting</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-text-primary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="font-label-md">Risk Management</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-text-primary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-text-primary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component Shell) -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-surface/80 backdrop-blur-md flex justify-between items-center px-margin-desktop z-30 border-b border-outline-variant">
+<div class="flex items-center bg-surface-container-highest/50 px-4 py-2 rounded-full border border-outline-variant w-96 group focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-text-secondary mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full placeholder:text-text-disabled" placeholder="Search markets, AI signals, or assets..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-md text-text-primary">$142,500.80</span>
+</div>
+<button class="relative text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-status-danger rounded-full border border-surface"></span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLzLlBg4C2Fjf1Plbw5axsmjQHnDKrLZnePVNUemabdJ7Q9vEcuPFaG-iI8V3Wa1XlpJV7rUXsqZpbbjRx4Yq23Y0Lcqm8rNt2Kp-iH2kVbF3IyRqfNkjsgO-NBZB1l_1EIfdaR9vns5Q4djVLBuFu6kSz7Pf_m_FKM1UAnD2ggpbFHZstsOCtIWGs09ttl8fjqBswBEERSnEaJ9uNS1xw7yQ8dmKiFuCFy2GPGQyWpwfOmrApncJ20oOyPzAQcEmPohrHp6PcLmvw"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pl-64 pt-16 min-h-screen">
+<div class="p-margin-desktop max-w-container-max mx-auto">
+<!-- Page Header -->
+<div class="mb-stack-lg flex justify-between items-end">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 bg-tertiary rounded-full animate-pulse"></span>
+<span class="font-label-sm text-tertiary tracking-widest">LIVE AI ENGINE</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary">Component Showcase: AI Decision Card</h1>
+<p class="text-text-secondary font-body-md mt-1">High-stakes intelligence designed for immediate institutional-grade execution.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2 rounded-lg border border-outline-variant text-text-primary font-label-md hover:bg-surface-container-high transition-all">Documentation</button>
+<button class="px-6 py-2 rounded-lg bg-primary text-on-primary font-label-md hover:opacity-90 transition-all">Export Library</button>
+</div>
+</div>
+<!-- Bento Layout Container -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- STANDALONE DETAIL VIEW (Hero Component) -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-gutter">
+<div class="p-stack-md bg-surface-container-lowest/50 rounded-xl border border-outline-variant">
+<h3 class="font-label-sm text-text-disabled uppercase mb-4 tracking-tighter">Standalone Specification</h3>
+<!-- THE AI DECISION CARD -->
+<div class="glass-panel rounded-2xl overflow-hidden ai-glow-primary group">
+<!-- Card Header: Symbol & AI Score -->
+<div class="p-6 flex justify-between items-start border-b border-outline-variant/30">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1 overflow-hidden">
+<img alt="NVDA Logo" class="max-w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzyE-w1L3VQYqrDq_dwO7Bfic8NXahFIqmpvrXhygxMpCwoAQHRySn-d0bk5dqYNJKTRsgUZMhMA4NDfH4wXbcmqk3i_1Ca0BjtcOEUi3Y7nVacHw9TMQwTKj9iI-4R2tV6vLSf_y-vx_0PaNOEOEvIiPPTF_3je3yy4DB96f5HpFcGbHxMMOJT4-pmDuIyQfOHP1RA1P5dQaKWuyUB3qBpqE-1poOJUUX-CW5KIZZQaed19rEVl8n39Tk3jy0-qrTSeAjm-CkbFgx"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary leading-none">NVDA</h2>
+<span class="text-text-secondary text-label-sm">NVIDIA Corporation</span>
+</div>
+</div>
+<span class="inline-flex items-center px-2 py-1 bg-tertiary/10 text-tertiary text-[10px] font-bold tracking-widest rounded uppercase border border-tertiary/20">
+                                        ACCUMULATION
+                                    </span>
+</div>
+<div class="text-right">
+<div class="font-display-numeric text-display-numeric text-primary leading-none">94</div>
+<span class="text-label-sm text-text-disabled">AI SIGNAL SCORE</span>
+</div>
+</div>
+<!-- Probability & Core Stats -->
+<div class="p-6 grid grid-cols-2 gap-stack-lg border-b border-outline-variant/30">
+<div class="space-y-1">
+<span class="text-label-sm text-text-disabled uppercase tracking-wide">Bullish Probability</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-numeric text-[32px] text-tertiary">88.4%</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+<div class="space-y-1 text-right">
+<span class="text-label-sm text-text-disabled uppercase tracking-wide">Risk Profile</span>
+<div class="flex items-center justify-end gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-tertiary ai-glow-success"></span>
+<span class="font-headline-sm text-tertiary">Low Risk</span>
+</div>
+</div>
+</div>
+<!-- Execution Strategy -->
+<div class="p-6 grid grid-cols-2 gap-y-stack-lg gap-x-gutter">
+<div class="space-y-1">
+<span class="text-label-sm text-text-disabled uppercase">Buy Entry Range</span>
+<div class="font-headline-sm text-text-primary tracking-tight">$872.50 - $876.00</div>
+</div>
+<div class="space-y-1 text-right">
+<span class="text-label-sm text-text-disabled uppercase">Target Exit</span>
+<div class="font-headline-sm text-tertiary tracking-tight">$920.00</div>
+</div>
+<div class="space-y-1">
+<span class="text-label-sm text-text-disabled uppercase">Stop Loss</span>
+<div class="font-headline-sm text-status-danger tracking-tight">$858.50</div>
+</div>
+<div class="space-y-1 text-right">
+<span class="text-label-sm text-text-disabled uppercase">Allocated Size</span>
+<div class="font-headline-sm text-text-primary">20.0%</div>
+</div>
+</div>
+<!-- Evidence Chain (Collapsible Logic) -->
+<div class="px-6 pb-6">
+<details class="group/evidence" open="">
+<summary class="flex items-center justify-between py-3 cursor-pointer list-none border-t border-outline-variant/30 text-text-secondary hover:text-text-primary transition-colors">
+<span class="font-label-md">EVIDENCE CHAIN</span>
+<span class="material-symbols-outlined transition-transform group-open/evidence:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="pt-2 pb-4 space-y-3">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-[18px] mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<p class="font-label-md text-text-primary">Golden Cross Confirmed (50/200 DMA)</p>
+<p class="text-label-sm text-text-disabled">Strong momentum continuation signal on daily timeframe.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-[18px] mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<p class="font-label-md text-text-primary">Institutional Order Flow Divergence</p>
+<p class="text-label-sm text-text-disabled">Hidden bullish RSI divergence on 4H chart with high volume.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5" data-icon="info">info</span>
+<div>
+<p class="font-label-md text-text-primary">Volatility Compression (Bollinger Band Squeeze)</p>
+<p class="text-label-sm text-text-disabled">Price consolidating before expected breakout.</p>
+</div>
+</div>
+</div>
+</details>
+</div>
+<!-- CTA Footer -->
+<div class="p-4 bg-surface-container-high/50 flex gap-3">
+<button class="flex-1 py-3 bg-tertiary text-on-tertiary font-bold rounded-xl active:scale-95 transition-all shadow-lg shadow-tertiary/10">
+                                    EXECUTE ORDER
+                                </button>
+<button class="w-12 h-12 flex items-center justify-center border border-outline-variant rounded-xl text-text-primary hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Usage Guidelines -->
+<div class="p-6 glass-panel rounded-2xl border border-outline-variant">
+<h4 class="font-headline-sm text-text-primary mb-4">Design Rationale</h4>
+<ul class="space-y-4">
+<li class="flex gap-3">
+<div class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center shrink-0">
+<span class="text-primary font-bold text-[10px]">01</span>
+</div>
+<p class="text-body-md text-text-secondary"><strong class="text-text-primary">Hierarchical Clarity:</strong> High-priority numbers use `display-numeric` for instant legibility in high-pressure trading scenarios.</p>
+</li>
+<li class="flex gap-3">
+<div class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center shrink-0">
+<span class="text-primary font-bold text-[10px]">02</span>
+</div>
+<p class="text-body-md text-text-secondary"><strong class="text-text-primary">Color Semantics:</strong> `tertiary` (#35e0a3) is used exclusively for actionable bullish signals, while `status-danger` (#FF5D5D) highlights risk thresholds.</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- DASHBOARD CONTEXT VIEW -->
+<div class="col-span-12 lg:col-span-7 space-y-gutter">
+<div class="p-stack-md bg-surface-container-lowest/50 rounded-xl border border-outline-variant">
+<h3 class="font-label-sm text-text-disabled uppercase mb-4 tracking-tighter">Contextual Implementation</h3>
+<!-- Simulated Dashboard -->
+<div class="bg-surface-panel border border-outline-variant rounded-2xl overflow-hidden">
+<!-- Dashboard Header -->
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex gap-4">
+<button class="font-label-md text-primary border-b-2 border-primary pb-1">AI Hot Picks</button>
+<button class="font-label-md text-text-secondary hover:text-text-primary transition-colors pb-1">Watchlist</button>
+<button class="font-label-md text-text-secondary hover:text-text-primary transition-colors pb-1">History</button>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-text-secondary cursor-pointer" data-icon="grid_view">grid_view</span>
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="view_list">view_list</span>
+</div>
+</div>
+<!-- Dash Content Grid -->
+<div class="p-6 bg-surface grid grid-cols-2 gap-6">
+<!-- Chart Preview -->
+<div class="col-span-2 h-64 glass-panel rounded-xl border border-outline-variant relative overflow-hidden flex flex-col">
+<div class="absolute inset-0 k-line-container opacity-40 pointer-events-none">
+<!-- Placeholder for chart texture -->
+<div class="h-full w-full bg-[linear-gradient(to_right,#1d2a42_1px,transparent_1px),linear-gradient(to_bottom,#1d2a42_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+</div>
+<div class="p-4 flex justify-between items-center relative z-10">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-text-primary">NVDA/USD</span>
+<span class="text-tertiary text-label-sm">+4.2%</span>
+</div>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container-highest rounded text-[10px] text-text-primary">1H</span>
+<span class="px-2 py-1 bg-primary text-on-primary rounded text-[10px]">1D</span>
+<span class="px-2 py-1 bg-surface-container-highest rounded text-[10px] text-text-primary">1W</span>
+</div>
+</div>
+<!-- Simple Sparkline Representation -->
+<div class="mt-auto h-32 w-full px-4 pb-8 flex items-end gap-1 relative z-10">
+<div class="flex-1 bg-tertiary/20 rounded-t h-[40%]"></div>
+<div class="flex-1 bg-tertiary/20 rounded-t h-[35%]"></div>
+<div class="flex-1 bg-tertiary/40 rounded-t h-[55%]"></div>
+<div class="flex-1 bg-tertiary/30 rounded-t h-[45%]"></div>
+<div class="flex-1 bg-tertiary/60 rounded-t h-[75%] border-t-2 border-tertiary shadow-[0_-4px_10px_rgba(53,224,163,0.3)]"></div>
+<div class="flex-1 bg-tertiary/40 rounded-t h-[65%]"></div>
+<div class="flex-1 bg-tertiary/80 rounded-t h-[95%] border-t-2 border-tertiary shadow-[0_-4px_10px_rgba(53,224,163,0.3)]"></div>
+</div>
+</div>
+<!-- The Main Signal Card (Scaled) -->
+<div class="col-span-1 glass-panel rounded-xl border border-outline-variant p-5 hover:border-primary transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<span class="font-headline-sm text-text-primary">NVDA</span>
+<div class="px-2 py-0.5 bg-tertiary/10 text-tertiary text-[10px] font-bold rounded">SIGNAL ACTIVE</div>
+</div>
+<div class="flex items-baseline gap-2 mb-4">
+<span class="font-display-numeric text-3xl text-primary">94</span>
+<span class="text-label-sm text-text-disabled">SCORE</span>
+</div>
+<div class="grid grid-cols-2 gap-4 text-label-sm">
+<div>
+<p class="text-text-disabled uppercase">Probability</p>
+<p class="text-tertiary font-bold">88.4% ↑</p>
+</div>
+<div class="text-right">
+<p class="text-text-disabled uppercase">Risk</p>
+<p class="text-tertiary font-bold">LOW</p>
+</div>
+</div>
+<button class="w-full mt-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg text-label-md hover:bg-primary hover:text-on-primary transition-all">Quick Trade</button>
+</div>
+<!-- Secondary Card -->
+<div class="col-span-1 glass-panel rounded-xl border border-outline-variant p-5 hover:border-primary transition-all cursor-pointer group opacity-70 hover:opacity-100">
+<div class="flex justify-between items-start mb-4">
+<span class="font-headline-sm text-text-primary">MSFT</span>
+<div class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded">MONITORING</div>
+</div>
+<div class="flex items-baseline gap-2 mb-4">
+<span class="font-display-numeric text-3xl text-text-secondary group-hover:text-primary transition-colors">72</span>
+<span class="text-label-sm text-text-disabled">SCORE</span>
+</div>
+<div class="grid grid-cols-2 gap-4 text-label-sm">
+<div>
+<p class="text-text-disabled uppercase">Probability</p>
+<p class="text-text-primary font-bold">64.1% ↑</p>
+</div>
+<div class="text-right">
+<p class="text-text-disabled uppercase">Risk</p>
+<p class="text-status-warning font-bold">MEDIUM</p>
+</div>
+</div>
+<button class="w-full mt-4 py-2 bg-surface-container-highest text-text-secondary border border-outline-variant rounded-lg text-label-md hover:bg-primary/20 hover:text-primary transition-all">View Details</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Component Props & Variants -->
+<div class="grid grid-cols-2 gap-gutter">
+<div class="p-6 glass-panel rounded-2xl border border-outline-variant">
+<h4 class="font-label-md text-primary mb-3">States &amp; Themes</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-lg border border-outline-variant">
+<span class="text-label-md text-text-primary">Bullish Action</span>
+<span class="w-4 h-4 rounded-full bg-tertiary"></span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-lg border border-outline-variant">
+<span class="text-label-md text-text-primary">Bearish Warning</span>
+<span class="w-4 h-4 rounded-full bg-status-danger"></span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-lg border border-outline-variant">
+<span class="text-label-md text-text-primary">Neutral/Observing</span>
+<span class="w-4 h-4 rounded-full bg-outline"></span>
+</div>
+</div>
+</div>
+<div class="p-6 glass-panel rounded-2xl border border-outline-variant flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-primary text-[48px] mb-2" data-icon="auto_awesome">auto_awesome</span>
+<h4 class="font-headline-sm text-text-primary">AI Logic Layer</h4>
+<p class="text-label-sm text-text-secondary mt-2">The decision card is not just data—it is a visual conclusion synthesized from 50+ real-time technical and sentiment indicators.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Background Decorative Elements -->
+<div class="fixed top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] -z-10 -translate-y-1/2 translate-x-1/2"></div>
+<div class="fixed bottom-0 left-0 w-[600px] h-[600px] bg-tertiary/5 rounded-full blur-[150px] -z-10 translate-y-1/2 -translate-x-1/4"></div>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('.glass-panel').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = card.getBoundingClientRect();
+                const x = (e.clientX - left) / width;
+                const y = (e.clientY - top) / height;
+                
+                card.style.setProperty('--mouse-x', `${x * 100}%`);
+                card.style.setProperty('--mouse-y', `${y * 100}%`);
+                
+                // Subtle tilt effect
+                const tiltX = (y - 0.5) * 4;
+                const tiltY = (x - 0.5) * -4;
+                card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            });
+        });
+    </script>
+</body></html>
