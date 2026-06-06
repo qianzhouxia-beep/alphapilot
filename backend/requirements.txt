@@ -33,3 +33,7 @@ structlog==24.4.0
 # Testing
 pytest==8.3.4
 pytest-asyncio==0.25.0
+
+# Data processing (used by Ashare.py and screener services)
+pandas==2.2.3
+numpy==2.1.3
