@@ -5,6 +5,7 @@ uvicorn[standard]==0.34.0
 # Data validation
 pydantic==2.10.4
 pydantic-settings==2.7.0
+email-validator==2.2.0  # for EmailStr in auth schemas
 
 # Database (async)
 sqlalchemy[asyncio]==2.0.36
