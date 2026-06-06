@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "on-error": "#690005",
+                "background": "#0a1422",
+                "on-secondary-fixed": "#001f28",
+                "inverse-on-surface": "#273140",
+                "secondary": "#7ddeff",
+                "on-primary-fixed": "#001c38",
+                "secondary-fixed": "#b5ebff",
+                "secondary-fixed-dim": "#46d6ff",
+                "tertiary-fixed": "#5cfdbd",
+                "tertiary": "#35e0a3",
+                "surface-variant": "#2c3545",
+                "surface-container-highest": "#2c3545",
+                "surface-card": "#101C30",
+                "secondary-container": "#00c6f0",
+                "on-primary": "#00315b",
+                "surface-container-low": "#121c2a",
+                "on-primary-fixed-variant": "#004881",
+                "surface-panel": "#0C1728",
+                "surface-bright": "#303a49",
+                "on-surface-variant": "#c0c7d4",
+                "on-secondary-container": "#004e60",
+                "text-disabled": "#6E7C93",
+                "border-subtle": "#1D2A42",
+                "outline-variant": "#404752",
+                "primary-container": "#4da3ff",
+                "on-tertiary-container": "#003f2a",
+                "surface-tint": "#a2c9ff",
+                "error-container": "#93000a",
+                "on-secondary-fixed-variant": "#004e60",
+                "on-primary-container": "#003866",
+                "status-warning": "#F5C451",
+                "outline": "#8a919d",
+                "tertiary-container": "#00b680",
+                "inverse-primary": "#0060a9",
+                "primary-fixed": "#d3e4ff",
+                "surface": "#0a1422",
+                "tertiary-fixed-dim": "#35e0a3",
+                "on-tertiary-fixed": "#002114",
+                "on-error-container": "#ffdad6",
+                "error": "#ffb4ab",
+                "surface-container-lowest": "#050e1c",
+                "on-surface": "#d9e3f7",
+                "primary-fixed-dim": "#a2c9ff",
+                "on-tertiary": "#003825",
+                "on-background": "#d9e3f7",
+                "inverse-surface": "#d9e3f7",
+                "status-danger": "#FF5D5D",
+                "primary": "#a2c9ff",
+                "text-primary": "#EAF2FF",
+                "surface-dim": "#0a1422",
+                "surface-container-high": "#212a39",
+                "on-tertiary-fixed-variant": "#005137",
+                "surface-container": "#16202f",
+                "text-secondary": "#9FB0C7",
+                "on-secondary": "#003543"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "stack-lg": "24px",
+                "stack-sm": "8px",
+                "margin-mobile": "16px",
+                "margin-desktop": "32px",
+                "container-max": "1440px",
+                "stack-md": "16px",
+                "gutter": "20px"
+              },
+              "fontFamily": {
+                "headline-lg": ["Inter"],
+                "headline-md": ["Inter"],
+                "headline-sm": ["Inter"],
+                "body-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "label-md": ["Inter"],
+                "label-sm": ["Inter"],
+                "display-numeric": ["Inter"]
+              },
+              "fontSize": {
+                "display-numeric": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0a1422;
+            color: #d9e3f7;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(16, 28, 48, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(29, 42, 66, 0.5);
+        }
+        .radar-grid {
+            stroke: #1D2A42;
+            stroke-width: 1;
+            fill: none;
+        }
+        .radar-axis {
+            stroke: #1D2A42;
+            stroke-width: 1;
+        }
+        .radar-area {
+            fill: rgba(77, 163, 255, 0.2);
+            stroke: #4DA3FF;
+            stroke-width: 2;
+            filter: drop-shadow(0 0 8px rgba(77, 163, 255, 0.4));
+        }
+        .radar-point {
+            fill: #4DA3FF;
+            stroke: #0a1422;
+            stroke-width: 2;
+        }
+        @keyframes pulse-glow {
+            0% { filter: drop-shadow(0 0 2px rgba(77, 163, 255, 0.4)); }
+            50% { filter: drop-shadow(0 0 12px rgba(77, 163, 255, 0.8)); }
+            100% { filter: drop-shadow(0 0 2px rgba(77, 163, 255, 0.4)); }
+        }
+        .glow-active {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-40 border-b border-border-subtle bg-surface-panel/80 backdrop-blur-md shadow-sm flex items-center justify-between px-margin-desktop h-16">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">AlphaPilot AI</span>
+<div class="hidden md:flex gap-stack-md ml-stack-lg">
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary py-1" href="#">Stock Screener</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-text-primary transition-colors duration-200 py-1" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-text-primary transition-colors duration-200 py-1" href="#">AI Intelligence</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined text-text-secondary">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined text-text-secondary">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border-subtle">
+<img alt="User Account Profile" data-alt="A professional headshot of a financial tech executive, clean lighting, dark background with subtle blue rim light, high-end corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALDb7_3rvZcVJn_8bLyQWZHkiial_wCVcWUQpCR_YnDRFGxTMwzfNsovvFQj36Yo2usalQRLLCrxYIuxyjXDpqeiJuzqcwEXh75Kr36Ym2wJQU4M1pDiUukzMuKr6wudoW2GajBOeKE0Tl_ygTUtJ3g-YJugBDOf3fbjWSCOhakX1VuU22ou3Nk84rAjsR-ZJZVLkfm3AxPdZEKhrDcyN6SRoPkwp5E0YJ7JHxYaO1-mSG3jq5vAJv5cWpuzdUmEZvgYCtbs0bRgng"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-50 border-r border-border-subtle bg-surface-container-lowest hidden md:flex flex-col py-stack-lg">
+<div class="px-6 mb-stack-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">insights</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary leading-none">AlphaPilot</h1>
+<p class="text-[10px] uppercase tracking-widest text-text-secondary mt-1">AI Intelligence</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-text-primary transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container/10 text-secondary border-r-4 border-secondary group" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">Stock Screener</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-text-primary transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label-md text-label-md">Backtesting</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-container-high hover:text-text-primary transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-md text-label-md">Risk Management</span>
+</a>
+</nav>
+<div class="px-6 py-4">
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-bold text-label-md shadow-lg shadow-secondary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                Upgrade to Pro
+            </button>
+</div>
+<div class="px-4 mt-auto border-t border-border-subtle pt-4">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-20 pb-12 px-margin-desktop min-h-screen bg-background">
+<!-- Header Section -->
+<header class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+<div>
+<nav class="flex items-center gap-2 text-text-secondary mb-2">
+<span class="font-label-sm text-label-sm">Components</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-label-sm text-label-sm text-primary">Radar Analysis</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-text-primary">AlphaPilot Component - Main Force Intent Analysis</h2>
+<p class="font-body-md text-body-md text-text-secondary mt-1">Deep institutional behavioral mapping for large-cap assets.</p>
+</div>
+<div class="flex items-center gap-3 glass-panel px-4 py-2 rounded-xl">
+<div class="flex items-center gap-3 border-r border-border-subtle pr-4">
+<img alt="NVDA" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe5VdF-JN2T5lHk0GPm4CbXCHIoWJYBxqwNDHmeSAMc77zQg04_0vjuIrVXaCDupB0qOepzJWRX9c_qu9Nb1LaXZqz9w01YmQXvoWxmYk1BEMVCIdfrsy-_PD7wmGhC8gp3T7Ahj94_Mu-mhRcrL-qan0jkUfD1HkmqoTMClcR9J07HxkLKR4EqphZAW_d_RKHrlECUg-ANuwmtjQhF3cIpc7I26dPE7JU3ZOpIFFtDL6yUyzJ3Z3qtjY6kUKbCZoQ5bhdq-4pR-73"/>
+<div>
+<div class="font-bold text-primary font-label-md">NVDA</div>
+<div class="text-[10px] text-text-secondary">NVIDIA Corp.</div>
+</div>
+</div>
+<div class="pl-2">
+<div class="text-tertiary font-display-numeric text-[20px]">$875.28</div>
+<div class="text-tertiary font-label-sm flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_drop_up</span>
+                        2.41%
+                    </div>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Side: Radar Chart Component (Main Focus) -->
+<div class="lg:col-span-8 glass-panel rounded-2xl p-stack-lg relative overflow-hidden flex flex-col items-center justify-center min-h-[600px]">
+<!-- Background Decorative Glow -->
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-24 -right-24 w-80 h-80 bg-secondary/10 rounded-full blur-[120px]"></div>
+<div class="w-full flex justify-between items-start absolute top-8 px-8">
+<div>
+<span class="bg-primary/20 text-primary border border-primary/30 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Live Engine</span>
+<h3 class="font-headline-sm text-headline-sm mt-3">Institutional Radar</h3>
+</div>
+<div class="text-right">
+<div class="text-[10px] uppercase text-text-secondary mb-1">Confidence Score</div>
+<div class="font-display-numeric text-headline-md text-secondary">94.2%</div>
+</div>
+</div>
+<!-- The Radar Chart SVG -->
+<div class="relative w-full max-w-[500px] aspect-square flex items-center justify-center">
+<svg class="w-full h-full" viewbox="0 0 400 400">
+<!-- Grid Concentric Hexagons -->
+<polygon class="radar-grid" points="200,40 338,120 338,280 200,360 62,280 62,120"></polygon>
+<polygon class="radar-grid" points="200,80 304,140 304,260 200,320 96,260 96,140"></polygon>
+<polygon class="radar-grid" points="200,120 270,160 270,240 200,280 130,240 130,160"></polygon>
+<polygon class="radar-grid" points="200,160 234,180 234,220 200,240 166,220 166,180"></polygon>
+<!-- Axes -->
+<line class="radar-axis" x1="200" x2="200" y1="200" y2="40"></line>
+<line class="radar-axis" x1="200" x2="338" y1="200" y2="120"></line>
+<line class="radar-axis" x1="200" x2="338" y1="200" y2="280"></line>
+<line class="radar-axis" x1="200" x2="200" y1="200" y2="360"></line>
+<line class="radar-axis" x1="200" x2="62" y1="200" y2="280"></line>
+<line class="radar-axis" x1="200" x2="62" y1="200" y2="120"></line>
+<!-- Radar Area (Data Polygon) -->
+<!-- Order: Accumulation, Pump, Distribution, Bear Trap, Bull Trap, Washout -->
+<!-- Points calc: Center(200,200), max radius 160. 0 deg is Up. -->
+<polygon class="radar-area" points="200,50 320,135 240,225 200,260 90,240 75,130"></polygon>
+<!-- Data Points -->
+<circle class="radar-point" cx="200" cy="50" r="4"></circle>
+<circle class="radar-point" cx="320" cy="135" r="4"></circle>
+<circle class="radar-point" cx="240" cy="225" r="4"></circle>
+<circle class="radar-point" cx="200" cy="260" r="4"></circle>
+<circle class="radar-point" cx="90" cy="240" r="4"></circle>
+<circle class="radar-point" cx="75" cy="130" r="4"></circle>
+</svg>
+<!-- Labels -->
+<div class="absolute top-[5%] left-1/2 -translate-x-1/2 font-label-md text-text-primary flex flex-col items-center group cursor-help">
+<span class="text-primary font-bold">Accumulation (吸筹)</span>
+<div class="hidden group-hover:block absolute top-full mt-2 w-48 glass-panel p-3 rounded-lg text-[11px] z-50">
+                            Institutions quietly buying large blocks without moving price significantly.
+                        </div>
+</div>
+<div class="absolute top-[25%] right-[2%] font-label-md text-text-primary flex flex-col items-end group cursor-help">
+<span class="text-tertiary">Pump/Rally (拉升)</span>
+</div>
+<div class="absolute bottom-[25%] right-[2%] font-label-md text-text-primary group cursor-help">
+<span class="text-text-secondary">Distribution (出货)</span>
+</div>
+<div class="absolute bottom-[5%] left-1/2 -translate-x-1/2 font-label-md text-text-primary group cursor-help">
+<span class="text-status-danger">Bear Trap (诱空)</span>
+</div>
+<div class="absolute bottom-[25%] left-[2%] font-label-md text-text-primary group cursor-help">
+<span class="text-status-warning">Bull Trap (诱多)</span>
+</div>
+<div class="absolute top-[25%] left-[2%] font-label-md text-text-primary group cursor-help">
+<span class="text-secondary">Washout (洗盘)</span>
+</div>
+<!-- Center Conclusion Hub -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 flex items-center justify-center">
+<div class="w-full h-full rounded-full border-2 border-primary/30 bg-surface-panel/90 backdrop-blur-md flex flex-col items-center justify-center text-center p-2 glow-active ring-1 ring-primary/20">
+<span class="text-[9px] uppercase tracking-tighter text-text-secondary mb-1">Conclusion</span>
+<div class="font-bold text-primary text-[12px] leading-tight">Strong<br/>Accumulation</div>
+<div class="text-tertiary text-[10px] mt-1 font-bold">主力意图：强力吸筹</div>
+</div>
+</div>
+</div>
+<!-- Legend / Status -->
+<div class="w-full grid grid-cols-3 gap-4 mt-8 px-8">
+<div class="border-l-2 border-primary pl-3 py-1">
+<div class="text-[10px] text-text-secondary uppercase">Momentum</div>
+<div class="font-bold text-text-primary font-label-md">Aggressive</div>
+</div>
+<div class="border-l-2 border-secondary pl-3 py-1">
+<div class="text-[10px] text-text-secondary uppercase">Volume Profile</div>
+<div class="font-bold text-text-primary font-label-md">Exhaustion High</div>
+</div>
+<div class="border-l-2 border-tertiary pl-3 py-1">
+<div class="text-[10px] text-text-secondary uppercase">Net Position</div>
+<div class="font-bold text-text-primary font-label-md">+24.8M Shrs</div>
+</div>
+</div>
+</div>
+<!-- Right Side Column: Insights & Details -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- AI Conclusion Card -->
+<div class="glass-panel rounded-2xl p-stack-md border-l-4 border-tertiary">
+<div class="flex items-center justify-between mb-stack-sm">
+<span class="font-label-sm text-label-sm text-tertiary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+                            AI SIGNATURE: STRONG BUY
+                        </span>
+<span class="text-[10px] text-text-disabled">Updated 2m ago</span>
+</div>
+<div class="font-display-numeric text-display-numeric text-text-primary mb-2">88<span class="text-headline-md opacity-50">/100</span></div>
+<p class="font-body-md text-body-md text-text-secondary mb-4">Institutional order flow patterns suggest a classic "Spring" phase in the Wyckoff cycle. Minor retail washout detected at $860 support.</p>
+<ul class="space-y-2 mb-stack-md">
+<li class="flex items-start gap-2 font-label-md text-label-md">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check_circle</span>
+<span>Abnormal Dark Pool activity at $870 level.</span>
+</li>
+<li class="flex items-start gap-2 font-label-md text-label-md">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check_circle</span>
+<span>Put/Call ratio divergence confirms bottoming.</span>
+</li>
+<li class="flex items-start gap-2 font-label-md text-label-md">
+<span class="material-symbols-outlined text-status-warning text-[18px]">error</span>
+<span>Volume spike needed to confirm breakout.</span>
+</li>
+</ul>
+<div class="flex gap-2">
+<button class="flex-1 py-2.5 bg-primary-container text-on-primary-container rounded-lg font-bold text-label-md hover:opacity-90 transition-opacity">Execute Trade</button>
+<button class="px-3 py-2.5 bg-surface-container-high border border-border-subtle rounded-lg">
+<span class="material-symbols-outlined text-text-primary">share</span>
+</button>
+</div>
+</div>
+<!-- Market Context / Sparklines -->
+<div class="glass-panel rounded-2xl p-stack-md flex-1">
+<h4 class="font-headline-sm text-headline-sm mb-4">Sector Comparison</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-border-subtle">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-[#313339] flex items-center justify-center">
+<img alt="TSLA" class="w-5 h-5 rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvM-y7R_hlsS8BsBBgimwUc9FCReG0sc6wm_JiOft68QyKdgMbsz8YRroAv2sMQB44PGeMc7CLbj2BQ4qO7amTge62ZrRxhfc8PccwIkK63dwE1NvLXmpLvkwt8BgcManS5nrvMnpwKDwQOJhnhjDi9f0NBbghLK1U5C3rzXVmt7kCPEmjCiCnf7JpYNv1x-Lu8iwyTmaeGyokFNggt1oG27afOwk0EWy0RJf2ksmmsNTx6dO9U2aK71Oao3TJV1Q9esJMmn6bmKRO"/>
+</div>
+<div>
+<div class="font-bold font-label-md text-text-primary">TSLA</div>
+<div class="text-[10px] text-text-secondary">Consumer</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-status-danger font-label-md">-1.24%</div>
+<div class="text-[10px] text-text-disabled">Distribution Phase</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-border-subtle">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-[#313339] flex items-center justify-center">
+<img alt="AAPL" class="w-5 h-5 rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXLMYzC1NKnZZ34zMMHUtM909dm3UORnbyYBd9xBrb4EMvNDFzxHHai7K9VBUBa5_ZaLiejMlEwgMpyISfM71X0AQ_o9RjKQUAW7B9lUQ6FZD9BgOSPinMeOGzGPANJE51Kwyzjt30vva6TcDIetSEXUNXRr_cPCLA3J9lM4NGxm2iZ2vZDB11hRXETYlLltyeRuT6bKfMeZRo6OvdyY8b7uI2rWSBt5pwK5qWliO8HA4NoHkxWQkUJ8XscE9lP7E7tZiGlmkpqix4"/>
+</div>
+<div>
+<div class="font-bold font-label-md text-text-primary">AAPL</div>
+<div class="text-[10px] text-text-secondary">Technology</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-tertiary font-label-md">+0.85%</div>
+<div class="text-[10px] text-text-disabled">Stable Accumulation</div>
+</div>
+</div>
+</div>
+<div class="mt-stack-lg">
+<h4 class="font-headline-sm text-headline-sm mb-2">Intent Evolution</h4>
+<div class="h-32 w-full bg-surface-container-lowest rounded-xl flex items-end gap-1 px-2 py-4">
+<!-- Simple Bar Chart Placeholder -->
+<div class="flex-1 bg-tertiary/20 rounded-t-sm h-[30%]"></div>
+<div class="flex-1 bg-tertiary/30 rounded-t-sm h-[45%]"></div>
+<div class="flex-1 bg-tertiary/40 rounded-t-sm h-[55%]"></div>
+<div class="flex-1 bg-tertiary/60 rounded-t-sm h-[80%]"></div>
+<div class="flex-1 bg-tertiary/80 rounded-t-sm h-[95%]"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-[90%] border-t-2 border-white/20"></div>
+</div>
+<div class="flex justify-between mt-2 px-1 text-[10px] text-text-disabled">
+<span>09:30 AM</span>
+<span>CURRENT</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Component Documentation / Footer -->
+<section class="mt-stack-lg glass-panel rounded-2xl p-stack-lg border-t-2 border-primary/20">
+<div class="flex flex-col md:flex-row gap-stack-lg">
+<div class="md:w-1/3">
+<h3 class="font-headline-md text-headline-md text-text-primary mb-2">Component Logic</h3>
+<p class="font-body-md text-body-md text-text-secondary">The "Main Force Intent Radar Chart" utilizes high-frequency tape reading and dark pool data to identify 6 key market manipulations.</p>
+</div>
+<div class="flex-1 grid grid-cols-2 md:grid-cols-3 gap-stack-md">
+<div class="p-4 rounded-xl bg-surface-container-high/40 border border-border-subtle">
+<div class="text-primary font-bold font-label-md mb-1">Accumulation</div>
+<p class="text-[11px] text-text-secondary">High frequency, small lot buying at support clusters.</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-high/40 border border-border-subtle">
+<div class="text-secondary font-bold font-label-md mb-1">Washout</div>
+<p class="text-[11px] text-text-secondary">Sharp stop-loss hunts to clear retail leveraged positions.</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-high/40 border border-border-subtle">
+<div class="text-tertiary font-bold font-label-md mb-1">Pump</div>
+<p class="text-[11px] text-text-secondary">Coordinated momentum push across major order books.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action for Component Customization -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined">tune</span>
+</button>
+<script>
+        // Simple interactive simulation for radar growth/changes
+        document.addEventListener('DOMContentLoaded', () => {
+            const polygon = document.querySelector('.radar-area');
+            const points = document.querySelectorAll('.radar-point');
+            
+            // Randomize slightly every few seconds to simulate "Live" data
+            setInterval(() => {
+                const basePoints = [
+                    [200, 40 + Math.random() * 20],   // Acc
+                    [338 - Math.random() * 30, 120 + Math.random() * 20], // Pump
+                    [338 - Math.random() * 100, 280 - Math.random() * 50], // Dist
+                    [200, 360 - Math.random() * 100], // Bear
+                    [62 + Math.random() * 40, 280 - Math.random() * 40], // Bull
+                    [62 + Math.random() * 20, 120 + Math.random() * 20]  // Wash
+                ];
+                
+                const pointsStr = basePoints.map(p => p.join(',')).join(' ');
+                polygon.setAttribute('points', pointsStr);
+                
+                points.forEach((dot, index) => {
+                    dot.setAttribute('cx', basePoints[index][0]);
+                    dot.setAttribute('cy', basePoints[index][1]);
+                });
+            }, 3000);
+        });
+    </script>
+</body></html>
