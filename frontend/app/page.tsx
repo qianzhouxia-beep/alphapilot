@@ -1,6 +1,6 @@
 // AlphaPilot US Market Dashboard — top-N opportunity-ranked US stocks
 // M2 2026-06-06: i18n, A-shares tab in header, Boss pick 双市场+双语
-// 2026-06-07: 'use client' for relative-URL fetches (rewrites work in client only, not RSC)
+// 2026-06-07: switched to absolute backend URL (no rewrite, no env dep) — works in any context
 
 "use client";
 
@@ -23,13 +23,14 @@ type ScreenerResponse = {
   source: "mock" | "live";
 };
 
-// US fetches go through Next.js rewrite (/api/backend/* -> NEXT_PUBLIC_API_BASE/*)
-// so the browser always hits the same origin (avoids CORS, survives NEXT_PUBLIC_API_BASE
-// being unset in prod by falling back to the rewrite target which is the backend).
-const US_API_PATH = "/api/backend/v1/screener/top";
+// US fetches go directly to the Zeabur backend with absolute URL.
+// Avoids rewrite + env-var lookup complexity. Hardcoded URL is fine for M2 demo;
+// W2 will move to env-based config.
+const US_API_BASE = "https://alphapilot-backend.zeabur.app";
+const US_SCREENER_PATH = `${US_API_BASE}/v1/screener/top`;
 
 async function fetchTopOpportunities(n: number = 20): Promise<ScreenerResponse> {
-  const res = await fetch(`${US_API_PATH}?n=${n}`, { cache: "no-store" });
+  const res = await fetch(`${US_SCREENER_PATH}?n=${n}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Backend ${res.status}: ${res.statusText}`);
   return res.json();
 }
