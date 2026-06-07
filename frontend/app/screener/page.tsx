@@ -1,6 +1,6 @@
 // AlphaPilot Screener — full top-20 with filters (M2)
 // Stitch design system + mock data from backend
-// 2026-06-07: 'use client' for relative-URL fetches (rewrites work in client only, not RSC)
+// 2026-06-07: switched to absolute backend URL (no rewrite, no env dep)
 
 "use client";
 
@@ -16,8 +16,9 @@ type ScreenerItem = {
   sector: string | null;
 };
 
-// Screener sub-page also goes through Next.js rewrite (same-origin, no CORS)
-const SCREENER_API_PATH = "/api/backend/v1/screener/top";
+// Screener sub-page: direct absolute URL, no rewrite, no env dep
+const SCREENER_API_BASE = "https://alphapilot-backend.zeabur.app";
+const SCREENER_API_PATH = `${SCREENER_API_BASE}/v1/screener/top`;
 
 async function fetchTop(n: number = 50): Promise<{ items: ScreenerItem[]; source: string }> {
   try {
