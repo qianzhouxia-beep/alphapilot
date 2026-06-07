@@ -1,7 +1,7 @@
 // AlphaPilot Stock Detail — AI Decision Card + Main Force Radar
 // M2 2026-06-05: Stitch design system, mock decision data
 // Ref: designs/stitch/alphapilot_component_ai/, alphapilot_stock_detail_v2/
-// 2026-06-07: 'use client' for relative-URL fetches (rewrites work in client only, not RSC)
+// 2026-06-07: switched to absolute backend URL (no rewrite, no env dep)
 
 "use client";
 
@@ -42,8 +42,9 @@ type MainForceRadar = {
   bear_trap: number;
 };
 
-// Stock detail page also goes through Next.js rewrite (same-origin)
-const STOCK_API_PATH = "/api/backend";
+// Stock detail page: direct absolute URL, no rewrite, no env dep
+const STOCK_API_BASE = "https://alphapilot-backend.zeabur.app";
+const STOCK_API_PATH = STOCK_API_BASE;
 
 async function fetchFromBackend(path: string): Promise<any> {
   const res = await fetch(`${STOCK_API_PATH}${path}`, { cache: "no-store" });
