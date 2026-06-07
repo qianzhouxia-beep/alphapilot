@@ -1,5 +1,8 @@
 // AlphaPilot Screener — full top-20 with filters (M2)
 // Stitch design system + mock data from backend
+// 2026-06-07: 'use client' for relative-URL fetches (rewrites work in client only, not RSC)
+
+"use client";
 
 import Link from "next/link";
 
