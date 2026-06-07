@@ -20,10 +20,13 @@ type ScreenerResponse = {
   source: "mock" | "live";
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8002";
+// US fetches go through Next.js rewrite (/api/backend/* -> NEXT_PUBLIC_API_BASE/*)
+// so the browser always hits the same origin (avoids CORS, survives NEXT_PUBLIC_API_BASE
+// being unset in prod by falling back to the rewrite target which is the backend).
+const US_API_PATH = "/api/backend/v1/screener/top";
 
 async function fetchTopOpportunities(n: number = 20): Promise<ScreenerResponse> {
-  const res = await fetch(`${API_BASE}/v1/screener/top?n=${n}`, { cache: "no-store" });
+  const res = await fetch(`${US_API_PATH}?n=${n}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Backend ${res.status}: ${res.statusText}`);
   return res.json();
 }
