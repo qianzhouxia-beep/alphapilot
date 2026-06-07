@@ -25,6 +25,21 @@ class Settings(BaseSettings):
     # Database
     database_url: str = "postgresql+asyncpg://alphapilot:alphapilot@localhost:5432/alphapilot"
 
+    @field_validator("database_url", mode="after")
+    @classmethod
+    def _normalize_async_pg_url(cls, v: str) -> str:
+        """Force asyncpg driver — code uses create_async_engine, so a sync driver (psycopg2/psycopg) will fail at runtime with 'asyncio extension requires an async driver'. Auto-rewrite the scheme so the env var can stay postgresql:// or postgresql+psycopg2:// without breaking the async engine."""
+        if not v:
+            return v
+        # Schemes that are sync and need rewriting
+        for sync_scheme in ("postgresql+psycopg2", "postgresql+psycopg", "postgresql+psycopg2cffi"):
+            if v.startswith(sync_scheme + "://"):
+                return "postgresql+asyncpg://" + v[len(sync_scheme) + 3:]
+        # Bare postgresql:// — let SQLAlchemy pick default; force asyncpg
+        if v.startswith("postgresql://"):
+            return "postgresql+asyncpg://" + v[len("postgresql://"):]
+        return v
+
     # Redis
     redis_url: str = "redis://localhost:6379/0"
 
