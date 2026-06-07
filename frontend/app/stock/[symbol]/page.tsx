@@ -39,10 +39,11 @@ type MainForceRadar = {
   bear_trap: number;
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8001";
+// Stock detail page also goes through Next.js rewrite (same-origin)
+const STOCK_API_PATH = "/api/backend";
 
 async function fetchFromBackend(path: string): Promise<any> {
-  const res = await fetch(`${API_BASE}${path}`, { cache: "no-store" });
+  const res = await fetch(`${STOCK_API_PATH}${path}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Backend ${res.status}`);
   return res.json();
 }
