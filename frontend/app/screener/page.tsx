@@ -13,11 +13,12 @@ type ScreenerItem = {
   sector: string | null;
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8001";
+// Screener sub-page also goes through Next.js rewrite (same-origin, no CORS)
+const SCREENER_API_PATH = "/api/backend/v1/screener/top";
 
 async function fetchTop(n: number = 50): Promise<{ items: ScreenerItem[]; source: string }> {
   try {
-    const res = await fetch(`${API_BASE}/v1/screener/top?n=${n}`, { cache: "no-store" });
+    const res = await fetch(`${SCREENER_API_PATH}?n=${n}`, { cache: "no-store" });
     if (!res.ok) throw new Error("backend");
     return await res.json();
   } catch {
