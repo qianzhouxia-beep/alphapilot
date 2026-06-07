@@ -1,5 +1,8 @@
 // AlphaPilot US Market Dashboard — top-N opportunity-ranked US stocks
 // M2 2026-06-06: i18n, A-shares tab in header, Boss pick 双市场+双语
+// 2026-06-07: 'use client' for relative-URL fetches (rewrites work in client only, not RSC)
+
+"use client";
 
 import { HeaderBar } from "@/components/HeaderBar";
 
