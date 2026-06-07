@@ -1,0 +1,6 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: alphapilot-backend
+spec:
+  type: docker
