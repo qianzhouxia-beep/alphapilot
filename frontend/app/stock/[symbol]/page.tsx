@@ -1,6 +1,9 @@
 // AlphaPilot Stock Detail — AI Decision Card + Main Force Radar
 // M2 2026-06-05: Stitch design system, mock decision data
 // Ref: designs/stitch/alphapilot_component_ai/, alphapilot_stock_detail_v2/
+// 2026-06-07: 'use client' for relative-URL fetches (rewrites work in client only, not RSC)
+
+"use client";
 
 import { notFound } from "next/navigation";
 
